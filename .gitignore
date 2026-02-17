@@ -1,0 +1,30 @@
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build output
+[Bb]in/
+[Oo]bj/
+
+# NuGet packages (legacy packages.config workflow)
+packages/
+**/packages/
+
+# Test/build artifacts
+TestResults/
+BenchmarkDotNet.Artifacts/
+
+# Logs and runtime temp artifacts
+*.log
+logs/
+tmp/
+temp/
+
+# OS/editor noise
+Thumbs.db
+Desktop.ini
+*.swp
+*.tmp

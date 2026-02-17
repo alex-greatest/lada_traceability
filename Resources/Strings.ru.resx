@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="alwaysVerification" xml:space="preserve">
+    <value>Имя пользователя</value>
+  </data>
+  <data name="btnStart" xml:space="preserve">
+    <value>Начать произв</value>
+  </data>
+  <data name="btnStop" xml:space="preserve">
+    <value>Ост. произв</value>
+  </data>
+  <data name="button1" xml:space="preserve">
+    <value>Выбор</value>
+  </data>
+  <data name="buttonChangeLanguage" xml:space="preserve">
+    <value>[Переключить язык]</value>
+  </data>
+  <data name="EnableVerification" xml:space="preserve">
+    <value>Запуск сверки № партии</value>
+  </data>
+  <data name="frmMain" xml:space="preserve">
+    <value>Система отсл. данных</value>
+  </data>
+  <data name="FscAddtitle" xml:space="preserve">
+    <value>Наим. детали</value>
+  </data>
+  <data name="FscbtnAdd" xml:space="preserve">
+    <value>Доб. строку данных</value>
+  </data>
+  <data name="FscbtnSave" xml:space="preserve">
+    <value>Сохр. данные</value>
+  </data>
+  <data name="Fvscbtncheck" xml:space="preserve">
+    <value>Сверка</value>
+  </data>
+  <data name="Fvscbtnsure" xml:space="preserve">
+    <value>Подтвердить</value>
+  </data>
+  <data name="FvscLabelgrade" xml:space="preserve">
+    <value>№ группы</value>
+  </data>
+  <data name="FvscLabelinfo" xml:space="preserve">
+    <value>Выбор модели</value>
+  </data>
+  <data name="FvscLabelPname" xml:space="preserve">
+    <value>Наим. продукта</value>
+  </data>
+  <data name="Fvsclabelscan" xml:space="preserve">
+    <value>Скан. № партии</value>
+  </data>
+  <data name="Fvsclabelstand" xml:space="preserve">
+    <value>Станд. номер партии</value>
+  </data>
+  <data name="Fvscopensc" xml:space="preserve">
+    <value>Открыть сканер</value>
+  </data>
+  <data name="groupBox" xml:space="preserve">
+    <value>Произв. настр</value>
+  </data>
+  <data name="label1" xml:space="preserve">
+    <value>Модель：</value>
+  </data>
+  <data name="label2" xml:space="preserve">
+    <value>Время произв:</value>
+  </data>
+  <data name="label3" xml:space="preserve">
+    <value>Штрих-код：</value>
+  </data>
+  <data name="label4" xml:space="preserve">
+    <value>Выбор шабл. штрих-кода</value>
+  </data>
+  <data name="MenuBarcode" xml:space="preserve">
+    <value>【Упр. данными】</value>
+  </data>
+  <data name="MenuData" xml:space="preserve">
+    <value>【Просм. данных】</value>
+  </data>
+  <data name="MenuItemBarcode" xml:space="preserve">
+    <value>[Настр. штрих-кода]</value>
+  </data>
+  <data name="MenuItemMin" xml:space="preserve">
+    <value>[Уменьшить]</value>
+  </data>
+  <data name="MenuItemNet" xml:space="preserve">
+    <value>[Сетевые данные]</value>
+  </data>
+  <data name="MenuItemPerson" xml:space="preserve">
+    <value>[Настр. персонала]</value>
+  </data>
+  <data name="MenuItemProduct" xml:space="preserve">
+    <value>[Настр. продукта]</value>
+  </data>
+  <data name="MenuItemReview" xml:space="preserve">
+    <value>[Отсл. данных]</value>
+  </data>
+  <data name="MenuItemReviewData" xml:space="preserve">
+    <value>[Настр. отслеж.]</value>
+  </data>
+  <data name="MenuProduct" xml:space="preserve">
+    <value>【Упр. линией】</value>
+  </data>
+  <data name="MenuSystem" xml:space="preserve">
+    <value>【Система】</value>
+  </data>
+  <data name="Mlabel5" xml:space="preserve">
+    <value>Планируемый выход：</value>
+  </data>
+  <data name="Mlabel6" xml:space="preserve">
+    <value>Настройки печати производственной модели</value>
+  </data>
+  <data name="Mlabel7" xml:space="preserve">
+    <value>№ группы：</value>
+  </data>
+  <data name="MtoolStripMI" xml:space="preserve">
+    <value>Скан. № партии</value>
+  </data>
+  <data name="pbtnAdd" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="pbtnDelete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="pbtnEdit" xml:space="preserve">
+    <value>Изменить</value>
+  </data>
+  <data name="pcheckBox" xml:space="preserve">
+    <value>Продукт</value>
+  </data>
+  <data name="plabel1" xml:space="preserve">
+    <value>Наим. прод.:</value>
+  </data>
+  <data name="plabel2" xml:space="preserve">
+    <value>Произв. процесс:</value>
+  </data>
+  <data name="plabel3" xml:space="preserve">
+    <value>Код:</value>
+  </data>
+  <data name="plabel4" xml:space="preserve">
+    <value>Операция:</value>
+  </data>
+  <data name="plan" xml:space="preserve">
+    <value>Целевой выход</value>
+  </data>
+  <data name="RbtnSearch" xml:space="preserve">
+    <value>Поиск штрих-кода</value>
+  </data>
+  <data name="RbtnToExcel" xml:space="preserve">
+    <value>Вывести</value>
+  </data>
+  <data name="Rbutton1" xml:space="preserve">
+    <value>Поиск диап. времени</value>
+  </data>
+  <data name="RcheckBox1" xml:space="preserve">
+    <value>Включить трассировку</value>
+  </data>
+  <data name="RDbtnOK" xml:space="preserve">
+    <value>Подтвердить</value>
+  </data>
+  <data name="RDcode" xml:space="preserve">
+    <value>Штрих-код</value>
+  </data>
+  <data name="RDdata" xml:space="preserve">
+    <value>Данные</value>
+  </data>
+  <data name="RDlabel30" xml:space="preserve">
+    <value>Интегр. станция</value>
+  </data>
+  <data name="RDlabel31" xml:space="preserve">
+    <value>Отд. станция</value>
+  </data>
+  <data name="RDstation" xml:space="preserve">
+    <value>Операция</value>
+  </data>
+  <data name="Rgroup1" xml:space="preserve">
+    <value>Поиск по времени</value>
+  </data>
+  <data name="Rlabel2" xml:space="preserve">
+    <value>Штрих-код</value>
+  </data>
+  <data name="Rlabel4" xml:space="preserve">
+    <value>Диапазон времени</value>
+  </data>
+  <data name="SPCbtnSave" xml:space="preserve">
+    <value>Добавить/Изменить</value>
+  </data>
+  <data name="SPClabel2" xml:space="preserve">
+    <value>Код продукта</value>
+  </data>
+  <data name="SPClabel3" xml:space="preserve">
+    <value>Префикс штрих-кода</value>
+  </data>
+  <data name="UbtnAdd" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="UbtnDelete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="UbtnEdit" xml:space="preserve">
+    <value>Изменить</value>
+  </data>
+  <data name="Ulabel1" xml:space="preserve">
+    <value>Имя пользователя</value>
+  </data>
+  <data name="Ulabel2" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="Ulabel4" xml:space="preserve">
+    <value>Уровень</value>
+  </data>
+  <data name="生产看板ToolStripMenuItem" xml:space="preserve">
+    <value>Производственная доска</value>
+  </data>
+</root>

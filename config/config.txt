@@ -1,0 +1,4 @@
+Mode=1
+StartIndex=3
+CodeLength=2
+Delimiter=-
