@@ -10,7 +10,7 @@
 ## 2. Ключевые runtime-компоненты
 | Компонент | Роль в потоке | Кодовые точки |
 |---|---|---|
-| `Program` | Bootstrap процесса и переход `Login -> Main` | `Program.cs:15`, `Program.cs:19`, `Program.cs:23` |
+| `Program` | Bootstrap процесса, DB profile preflight и переход `Login -> Main` | `Program.cs:18`, `Program.cs:22`, `Program.cs:41` |
 | `FrmLogIn` | Аутентификация пользователя | `FrmLogIn.cs:31`, `FrmLogIn.cs:35`, `DBHelper.cs:349` |
 | `FrmMain` | Оркестрация UI и запуска линии | `FrmMain.cs:90`, `FrmMain.cs:214`, `FrmMain.cs:507` |
 | `ProductLine` | TCP listener, accept/receive/send со станциями | `ProductLine.cs:122`, `ProductLine.cs:147`, `ProductLine.cs:215`, `ProductLine.cs:253` |
@@ -22,12 +22,16 @@
 ## 3. Сквозной поток исполнения (happy path)
 
 ### 3.1 Bootstrap и login
-1. Процесс стартует из `Main`, включает WinForms окружение и открывает модальный логин.
-Код: `Program.cs:15`, `Program.cs:17`, `Program.cs:20`.
-2. По нажатию `Login` форма читает `txtUser/txtPwd` и вызывает `DBHelper.UserlogIn(...)`.
+1. Процесс стартует из `Main`, включает WinForms окружение.
+Код: `Program.cs:18`, `Program.cs:19`.
+2. До показа логина выполняется startup preflight профиля БД (`DbProfileResolver.ValidateOrThrow()`); при ошибке — fail-fast (`ErrorLogger` + `MessageBox` + остановка старта).
+Код: `Program.cs:22`, `Program.cs:33`, `Utils/DbProfileResolver.cs:16`.
+3. После успешного preflight открывается модальный логин.
+Код: `Program.cs:40`, `Program.cs:41`.
+4. По нажатию `Login` форма читает `txtUser/txtPwd` и вызывает `DBHelper.UserlogIn(...)`.
 Код: `FrmLogIn.cs:31`, `FrmLogIn.cs:33`, `FrmLogIn.cs:35`, `DBHelper.cs:352`.
-3. При `LoginFlag == true` закрывается окно логина и запускается `FrmMain(user, level)`.
-Код: `FrmLogIn.cs:36`, `FrmLogIn.cs:39`, `Program.cs:21`, `Program.cs:23`.
+5. При `LoginFlag == true` закрывается окно логина и запускается `FrmMain(user, level)`.
+Код: `FrmLogIn.cs:36`, `FrmLogIn.cs:39`, `Program.cs:42`, `Program.cs:44`.
 
 ### 3.2 Инициализация `FrmMain`
 1. Конструктор `FrmMain` вызывает `ReadIPAndPort()`: читает таблицу `station`, извлекает серверный endpoint и карту станций.
@@ -122,8 +126,8 @@
 Код: `MyTimer.cs:515`, `MyTimer.cs:518`, `FrmMain.cs:561`.
 
 ## 6. Потоки записи в БД
-1. Базовое подключение берется из `connectMySql` в `App.config`.
-Код: `DBHelper.cs:18`, `App.config:9`.
+1. Базовое подключение резолвится по профилю `DbProfile` (`prod/test`) через `DbProfileResolver` и применяется только при старте процесса.
+Код: `Utils/DbProfileResolver.cs:31`, `DBHelper.cs:17`, `Repository/DBcontext.cs:10`, `App.config:13`.
 2. Сырые station-данные пишутся через `SaveStationData`/`updateStationData*`.
 Код: `DBHelper.cs:629`, `DBHelper.cs:711`, `DBHelper.cs:755`, `DBHelper.cs:762`.
 3. Итог по изделию обновляется в `stationprocode`.

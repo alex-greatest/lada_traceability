@@ -17,6 +17,7 @@
 - `docs/80-localization-and-ui-language.md`
 - `docs/90-onboarding-map.md`
 - `docs/95-agents-operational-index.md`
+- `docs/LADA_Review_Руководство.md`
 
 ## Вопрос -> документ
 
@@ -33,6 +34,7 @@
 | Где security baseline и приоритеты hardening? | `docs/70-security-baseline.md` | `App.config`, `DBHelper.cs` |
 | Где описаны локализация и языковое поведение UI? | `docs/80-localization-and-ui-language.md` | `Resources/Strings*.resx`, `FrmMain.cs` |
 | Где onboarding по проекту? | `docs/90-onboarding-map.md` | `docs/95-agents-operational-index.md` |
+| Где пользовательское руководство по эксплуатации UI/процесса? | `docs/LADA_Review_Руководство.md` | `docs/50-operations-runbook.md`, `docs/90-onboarding-map.md` |
 | Где навигационный индекс source-of-truth? | `docs/95-agents-operational-index.md` | `docs/00-system-overview.md` |
 | Где точка входа приложения? | `Program.cs` | `LADA.sln` |
 | Какой основной пользовательский сценарий после логина? | `FrmMain.cs` | `FrmLogIn.cs` |

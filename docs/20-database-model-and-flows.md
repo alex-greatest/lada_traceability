@@ -2,9 +2,11 @@
 
 ## 1) Область и источники
 Документ описывает фактический data-access в проекте по состоянию кода в репозитории. Источники:
-- `App.config:6`-`App.config:10` (connection strings).
-- `Repository/DBcontext.cs:15`-`Repository/DBcontext.cs:41` (SqlSugar profile).
-- `DBHelper.cs:18`-`DBHelper.cs:1028` (ADO.NET MySQL слой + бизнес-методы).
+- `App.config:6`-`App.config:16` (connection strings + `DbProfile`).
+- `Utils/DbProfileResolver.cs:6`-`Utils/DbProfileResolver.cs:82` (резолв и валидация профиля БД).
+- `Program.cs:22`-`Program.cs:35` (startup preflight/fail-fast по профилю БД).
+- `Repository/DBcontext.cs:7`-`Repository/DBcontext.cs:40` (SqlSugar profile).
+- `DBHelper.cs:17`-`DBHelper.cs:1027` (ADO.NET MySQL слой + бизнес-методы).
 - `Repository/SqlSugarHelper.cs:15`-`Repository/SqlSugarHelper.cs:373` (ORM-методы).
 - `MyTimer.cs:98`-`MyTimer.cs:658` (основные write/read сценарии линии).
 - `FrmReview.cs:166`-`FrmReview.cs:371`, `FrmReviewData.cs:125`-`FrmReviewData.cs:392` (чтение/конфигурация trace-отчетов).
@@ -13,20 +15,30 @@
 ## 2) Connection profile
 | Параметр | Значение | Где в коде |
 |---|---|---|
-| DBMS | MySQL | `App.config:9`, `Repository/DBcontext.cs:22` |
-| БД | `lada_db` | `App.config:9` |
-| Хост/порт | `127.0.0.1:3306` | `App.config:9` |
-| Учетные данные | `root / 123456` (в открытом виде) | `App.config:9` |
-| Пул соединений | `Pooling=true` | `App.config:9` |
-| ADO.NET драйвер | `MySql.Data 8.0.32` | `App.config:37`, `LADA.csproj:56` |
+| Профиль окружения | `DbProfile` = `prod` или `test` | `App.config:13`, `Utils/DbProfileResolver.cs:9` |
+| Маппинг профиля | `prod -> connectMySql_prod`, `test -> connectMySql_test` | `Utils/DbProfileResolver.cs:11`, `Utils/DbProfileResolver.cs:46` |
+| Применение профиля | Только при старте приложения (до `FrmLogIn`) | `Program.cs:22`, `Program.cs:25` |
+| Политика ошибки профиля | `fail-fast`: лог + MessageBox + остановка старта | `Program.cs:29`, `Program.cs:33` |
+| Active key (default) | `connectMySql_prod` при `DbProfile=prod` | `App.config:9`, `App.config:13` |
+| Test key | `connectMySql_test` при `DbProfile=test` | `App.config:10`, `App.config:13` |
+| DBMS | MySQL | `App.config:9`, `Repository/DBcontext.cs:16` |
+| БД | `lada_db` | `App.config:9`, `App.config:10` |
+| Хост/порт | `127.0.0.1:3306` | `App.config:9`, `App.config:10` |
+| Учетные данные | plaintext в `App.config` (`connectMySql_prod`, `connectMySql_test`) | `App.config:9`, `App.config:10` |
+| Policy exception | accepted residual risk: plaintext для `connectMySql_prod/connectMySql_test` разрешен бессрочно без compensating controls | `AGENTS.md` (Hard Safety Rules пп.5-6), `docs/70-security-baseline.md` |
+| Пул соединений | `Pooling=true` | `App.config:9`, `App.config:10` |
+| ADO.NET драйвер | `MySql.Data 8.0.32` | `App.config:38`, `LADA.csproj:56` |
 | ORM | `SqlSugar 5.1.4.198` | `LADA.csproj:85`, `packages.config:10` |
-| Command timeout | `5000` (часть методов `DBHelper`), `30s` (SqlSugar ADO) | `DBHelper.cs:53`, `DBHelper.cs:73`, `Repository/DBcontext.cs:41` |
+| Command timeout | `5000` (часть методов `DBHelper`), `30s` (SqlSugar ADO) | `DBHelper.cs:52`, `DBHelper.cs:72`, `Repository/DBcontext.cs:35` |
 | Профиль SQL Server | Есть legacy-строка, фактически не используется в LADA-потоках | `App.config:8` |
 
 Дополнительно:
-- `DBHelper` открывает новое соединение почти на каждый вызов (`new MySqlConnection(ConnStr)`), транзакции по умолчанию автокоммитные: `DBHelper.cs:29`, `DBHelper.cs:50`, `DBHelper.cs:93` и др.
-- `SqlSugarScope` работает как singleton с `IsAutoCloseConnection = true`: `Repository/DBcontext.cs:19`-`Repository/DBcontext.cs:23`.
-- SQL логируется в `Console` через `OnLogExecuting`: `Repository/DBcontext.cs:28`.
+- И `DBHelper`, и `DBcontext` читают строку подключения из одного резолвера (`DbProfileResolver`), что исключает рассинхронизацию профиля: `DBHelper.cs:17`, `Repository/DBcontext.cs:10`.
+- Hot-swap профиля в runtime отсутствует: для смены `DbProfile` требуется перезапуск приложения (резолв идет в startup preflight): `Program.cs:25`.
+- Хранение DB credentials в plaintext для profile-ключей зафиксировано как policy-исключение (accepted residual risk), см. `AGENTS.md` и `docs/70-security-baseline.md`.
+- `DBHelper` открывает новое соединение почти на каждый вызов (`new MySqlConnection(ConnStr)`), транзакции по умолчанию автокоммитные: `DBHelper.cs:28`, `DBHelper.cs:49`, `DBHelper.cs:92` и др.
+- `SqlSugarScope` работает как singleton с `IsAutoCloseConnection = true`: `Repository/DBcontext.cs:13`-`Repository/DBcontext.cs:17`.
+- SQL логируется в `Console` через `OnLogExecuting`: `Repository/DBcontext.cs:22`.
 
 ## 3) Ключевые таблицы
 

@@ -328,6 +328,7 @@
       <DependentUpon>FrmVerifySCode.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils\AppContext.cs" />
+    <Compile Include="Utils\DbProfileResolver.cs" />
     <Compile Include="Utils\LogFile.cs" />
     <Compile Include="Utils\Utils.cs" />
     <EmbeddedResource Include="FrmSetPrintCode.resx">

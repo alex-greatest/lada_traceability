@@ -74,6 +74,7 @@
 ### 4.1 Текст вне `Resources/Strings*.resx`
 
 - Сообщения об ошибках/подсказках зашиты в код:
+  - startup fail-fast для профиля БД (`Program.Main`) использует `MessageBox` с техническим текстом без `Resources`;
   - [`FrmReviewData.CheckAllTextBoxesEmpty`](../FrmReviewData.cs),
   - [`FrmStation`](../FrmStation.cs),
   - [`FrmRS`](../FrmRS.cs),
@@ -112,6 +113,7 @@
 ## 6. Ссылки на ключевые точки реализации
 
 - Инициализация и переключение: [`FrmMain`](../FrmMain.cs), [`FrmMain.Designer`](../FrmMain.Designer.cs)
+- Startup DB profile preflight (не локализован): [`Program`](../Program.cs), [`Utils/DbProfileResolver`](../Utils/DbProfileResolver.cs)
 - Ресурсы: [`Resources/Strings.resx`](../Resources/Strings.resx), [`Resources/Strings.ru.resx`](../Resources/Strings.ru.resx), [`Resources/Strings.Designer.cs`](../Resources/Strings.Designer.cs)
 - Локализуемые формы: [`FrmUser`](../FrmUser.cs), [`FrmProduct`](../FrmProduct.cs), [`FrmReview`](../FrmReview.cs), [`FrmReviewData`](../FrmReviewData.cs), [`FrmSetPrintCode`](../FrmSetPrintCode.cs), [`UI/FrmStandCode`](../UI/FrmStandCode.cs), [`UI/FrmVerifySCode`](../UI/FrmVerifySCode.cs), [`UI/FormGradeNumber`](../UI/FormGradeNumber.cs)
 - Нелокализованные/частично локализованные формы: [`FrmLogIn`](../FrmLogIn.cs), [`FrmLog`](../FrmLog.cs), [`FrmNet`](../FrmNet.cs), [`FrmStation`](../FrmStation.cs), [`FrmRS`](../FrmRS.cs), [`FrmBarcode`](../FrmBarcode.cs), [`FrmDisplay`](../FrmDisplay.cs)

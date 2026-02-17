@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
 using MySql;
@@ -15,7 +14,7 @@ namespace Review
     public class DBHelper
     {
         //readonly修饰的变量，只能在初始化的时候赋值，以及在构造函数中赋值，其他地方只能读取不能设置。
-        private static readonly string ConnStr = ConfigurationManager.ConnectionStrings["connectMySql"].ConnectionString;
+        private static readonly string ConnStr = Review.Utils.DbProfileResolver.ResolveConnectionString();
         /// <summary>
         /// 执行 T-SQL命令，insert delete updata
         /// </summary>
@@ -611,14 +610,14 @@ namespace Review
                 transaction.Commit();
                 return procode;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
                 try
                 {
                     transaction.Rollback();
                 }
-                catch (Exception en)
+                catch (Exception)
                 {
                     throw;
                 }

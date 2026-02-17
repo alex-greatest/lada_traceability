@@ -7,7 +7,7 @@
 - Тип: WinForms-приложение на .NET Framework 4.8 (`LADA.csproj`).
 - Домен: производственная трассируемость/контроль качества (линии OPxx, штрихкоды, RFID, печать).
 - Точка входа: `Program.cs` -> `FrmLogIn` -> `FrmMain`.
-- БД: MySQL (`App.config`, ключ `connectMySql`).
+- БД: MySQL (`App.config`, `DbProfile` + ключи `connectMySql_prod/connectMySql_test`).
 
 ## 2) Быстрый старт (15-30 минут)
 1. Установить окружение:
@@ -105,6 +105,7 @@
 - `docs/80-localization-and-ui-language.md`
 - `docs/90-onboarding-map.md`
 - `docs/95-agents-operational-index.md`
+- `docs/LADA_Review_Руководство.md`
 
 При добавлении новых документов обновляй индекс в `docs/95-agents-operational-index.md`.
 

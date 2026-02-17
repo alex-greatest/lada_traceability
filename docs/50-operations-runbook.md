@@ -25,8 +25,11 @@
 Код: `LADA.csproj:11`.
 2. Проверить, что `log4net` подключен assembly-атрибутом и файл лог-конфига копируется в output.
 Код: `Properties/AssemblyInfo.cs:17`, `LADA.csproj:414`, `LADA.csproj:415`.
-3. Проверить корректность connection string `connectMySql`.
-Код: `App.config:9`, `DBHelper.cs:18`, `Repository/DBcontext.cs:15`.
+3. Проверить корректность DB-профиля и connection strings:
+- `DbProfile` должен быть `prod` или `test`;
+- в `connectionStrings` должны существовать `connectMySql_prod` и `connectMySql_test`.
+Код: `App.config:9`, `App.config:10`, `App.config:13`, `Utils/DbProfileResolver.cs:36`.
+Примечание: plaintext credentials в `connectMySql_prod/connectMySql_test` разрешены как policy-исключение (бессрочно, без compensating controls), см. `AGENTS.md` и `docs/70-security-baseline.md`.
 4. Проверить права на запись в каталоги логов (`logs/operation`, `logs/error`, `logs/NG_info`).
 Код: `config/log4net.config:75`, `config/log4net.config:87`, `config/log4net.config:98`.
 
@@ -36,22 +39,30 @@
 ```powershell
 Test-NetConnection 127.0.0.1 -Port 3306
 ```
-2. Проверить, что в таблице `station` корректно задана строка server endpoint и станции.
+2. Проверить активный профиль:
+- `DbProfile=prod` для production-запуска;
+- `DbProfile=test` только для тестового контура.
+Код: `App.config:13`, `Utils/DbProfileResolver.cs:44`.
+3. Проверить, что для выбранного профиля существует непустой ключ подключения:
+- `prod -> connectMySql_prod`;
+- `test -> connectMySql_test`.
+Код: `Utils/DbProfileResolver.cs:46`, `Utils/DbProfileResolver.cs:59`.
+4. Проверить, что в таблице `station` корректно задана строка server endpoint и станции.
 Код чтения: `FrmMain.cs:214`, `FrmMain.cs:220`, `FrmMain.cs:227`.
-3. Проверить, что серверный TCP-порт свободен (тот, что в `station` для server).
+5. Проверить, что серверный TCP-порт свободен (тот, что в `station` для server).
 Код проверки: `FrmMain.cs:545`, `MyTools.cs:81`.
 Пример:
 ```powershell
 Get-NetTCPConnection -LocalPort <SERVER_PORT> -State Listen
 ```
-4. Проверить готовность справочников для выбранной модели:
+6. Проверить готовность справочников для выбранной модели:
 - `product` (для `ProductID`);
 - `printcode` (текущий печатный код);
 - `standardcode`/`scancode` (если включена верификация партии).
 Код: `FrmMain.cs:584`, `DBHelper.cs:919`, `FrmMain.cs:527`, `FrmMain.cs:893`.
-5. Проверить файл шаблона печати `.prn` (оператор выбирает в UI перед стартом).
+7. Проверить файл шаблона печати `.prn` (оператор выбирает в UI перед стартом).
 Код: `FrmMain.cs:518`, `FrmMain.cs:781`, `FrmMain.cs:794`.
-6. Проверить доступность принтера Zebra по сети.
+8. Проверить доступность принтера Zebra по сети.
 Код: `MyTimer.cs:668`, `MyTimer.cs:703`.
 Пример:
 ```powershell
@@ -68,6 +79,13 @@ Test-NetConnection 192.168.1.45 -Port 9100
 Код: `FrmMain.cs:518`, `FrmMain.cs:522`.
 4. При включенной сверке `CodeVerification()` возвращает `true`.
 Код: `FrmMain.cs:529`, `FrmMain.cs:890`.
+
+### 3.4 Переключение профиля БД (prod/test)
+1. Остановить линию и завершить `Review.exe` (переключение в runtime не поддерживается).
+2. Изменить `DbProfile` в `App.config` на `prod` или `test`.
+3. Убедиться, что соответствующий ключ `connectMySql_<profile>` задан корректно.
+4. Перезапустить приложение и убедиться, что startup preflight прошел без fail-fast.
+Код: `Program.cs:22`, `Program.cs:35`, `Utils/DbProfileResolver.cs:31`.
 
 ## 4. Start procedure
 1. Запустить `Review.exe`.
@@ -148,12 +166,13 @@ Recovery:
 - авторизация не проходит при корректных учетных данных;
 - DB-исключения при старте/записи.
 
-Код: `DBHelper.cs:349`, `DBHelper.cs:114`, `App.config:9`.
+Код: `DBHelper.cs:349`, `DBHelper.cs:114`, `App.config:9`, `App.config:13`.
 
 Recovery:
 1. Проверить MySQL service и доступность `127.0.0.1:3306`.
-2. Проверить `connectMySql` в `App.config`.
-3. Повторить login и start.
+2. Проверить `DbProfile` и ключи `connectMySql_prod/connectMySql_test` в `App.config`.
+3. При startup fail-fast проверить текст ошибки и `logs/error`.
+4. Повторить login и start.
 
 ### 6.4 IR-03: Станция не подключается / нелегитимный endpoint
 Сигналы:

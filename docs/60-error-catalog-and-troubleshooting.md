@@ -75,7 +75,7 @@ Recovery:
 - credentials invalid
 
 Проверка:
-1. Проверить `App.config` connection strings (`App.config:8`, `App.config:9`).
+1. Проверить `App.config` connection strings (`App.config:9`, `App.config:10`) и `DbProfile` (`App.config:13`).
 2. Проверить доступ к `lada_db`.
 3. Проверить что методы `DBHelper`/`SqlSugarHelper` могут выполнить простой select.
 
@@ -104,6 +104,32 @@ Recovery:
 1. Зафиксировать failing SQL.
 2. Выполнить ручную проверку данных payload.
 3. После восстановления выполнить контрольную обработку тестового изделия.
+
+### E-DB-003: Некорректный DbProfile / отсутствует profile connection string
+Симптомы:
+- приложение не доходит до `FrmLogIn`, показывает `Startup Error`;
+- в `logs/error` фиксируется ошибка конфигурации профиля БД.
+
+Вероятные причины:
+- `DbProfile` отсутствует, пустой или имеет значение вне `prod/test`;
+- отсутствует `connectMySql_prod` или `connectMySql_test`;
+- ключ подключения есть, но строка подключения пустая.
+
+Проверка:
+1. Проверить `App.config`:
+- `appSettings/DbProfile`;
+- `connectionStrings/connectMySql_prod`;
+- `connectionStrings/connectMySql_test`.
+2. Проверить startup-check в `Program.Main` и резолвер:
+- `Program.cs:22`;
+- `Utils/DbProfileResolver.cs:36`;
+- `Utils/DbProfileResolver.cs:59`.
+
+Recovery:
+1. Исправить `DbProfile` на `prod` или `test`.
+2. Восстановить непустой connection string для выбранного профиля.
+3. Перезапустить приложение.
+4. Подтвердить, что логин доступен и DB-операции проходят smoke-проверку.
 
 ### E-PRN-001: Принтер недоступен
 Симптомы:
