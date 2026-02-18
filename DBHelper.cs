@@ -2,19 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Data.SqlClient;
 using System.Data;
-using MySql;
 using MySql.Data.MySqlClient;
-using System.Windows.Forms;
-using Windows.ApplicationModel.Store;
 
 namespace Review
 {
     public class DBHelper
     {
         //readonly修饰的变量，只能在初始化的时候赋值，以及在构造函数中赋值，其他地方只能读取不能设置。
-        private static readonly string ConnStr = Review.Utils.DbProfileResolver.ResolveConnectionString();
+        private static readonly string ConnStr = Utils.DbProfileResolver.ResolveConnectionString();
         /// <summary>
         /// 执行 T-SQL命令，insert delete updata
         /// </summary>

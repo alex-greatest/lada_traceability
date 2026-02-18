@@ -89,6 +89,18 @@
 2. Не перезаписывать изменения других агентов.
 3. При конфликте источников правды приоритет у документов `docs/` (после их обновления в рамках текущего пакета).
 
+## Build Standard
+1. Основной способ сборки репозитория: `.\build.ps1`.
+2. Скрипт сам ищет корректный `MSBuild.exe` через `vswhere` и собирает `LADA.sln`.
+3. Примеры:
+- `.\build.ps1 -Configuration Debug`
+- `.\build.ps1 -Configuration Release -Clean`
+- `.\build.ps1 -Restore`
+4. Допускается явный override пути:
+- `.\build.ps1 -MsBuildPath "C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Current\Bin\MSBuild.exe"`
+5. `dotnet msbuild` для этого решения не является стандартом из-за legacy WinForms/.resx и возможных `MSB3822/MSB3823`.
+6. Если нужно запускать без полного пути к MSBuild, используйте Developer PowerShell for VS или добавьте путь к `MSBuild.exe` в `PATH`.
+
 ## Done Criteria for Agent Tasks
 Задача считается завершенной только если:
 1. Изменения в коде (если были) и соответствующие изменения в документации синхронизированы.
